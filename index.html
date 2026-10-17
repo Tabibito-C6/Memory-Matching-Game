@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Memory Matching Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Marcellus&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+  <main class="cabinet">
+    <header class="marquee"><h1>Memory Matching<br>Game</h1></header>
+
+    <section class="hud">
+      <div class="stat"><span class="label">Score</span><output id="score">0</output></div>
+      <div class="stat"><span class="label">Time left</span><output id="time">90</output></div>
+      <div class="stat"><span class="label">Round</span><output id="round">1</output></div>
+      <div class="stat"><span class="label">Streak</span><output id="streak">1x</output></div>
+    </section>
+
+    <section class="screen">
+      <div id="board" class="board"></div>
+
+      <div id="overlay" class="overlay">
+        <div id="start-panel" class="panel">
+          <h2>Ready?</h2>
+          <button id="start-btn" class="btn" type="button">Start game</button>
+        </div>
+
+        <div id="over-panel" class="panel" hidden>
+          <h2>Time's up</h2>
+          <p>Final score <strong id="final-score">0</strong></p>
+          <p>Reached round <strong id="final-round">1</strong></p>
+          <form id="initials-form" autocomplete="off">
+            <label for="initials">Enter your initials</label>
+            <input id="initials" maxlength="3" placeholder="AAA" required>
+            <button class="btn" type="submit">Save score</button>
+          </form>
+          <h2>Top 5 high scores</h2>
+          <ol id="scores" class="scores"></ol>
+          <button id="play-again" class="btn" type="button" hidden>Play again</button>
+        </div>
+      </div>
+    </section>
+
+    <p id="message" aria-live="polite"></p>
+  </main>
+
+  <aside class="side" id="how-to-play">
+    <h2>How to play</h2>
+    <ul class="rules">
+      <li>Flip two cards at a time and find the matching character pairs.</li>
+      <li>Quick matches earn bonus points on top of the base score.</li>
+      <li>Match in a row to raise your multiplier up to 3x. One miss resets it to 1x.</li>
+      <li>Clear the board to start the next round and gain <strong data-fill="bonus"></strong> seconds. You begin with <strong data-fill="start"></strong>.</li>
+    </ul>
+  </aside>
+
+  <aside class="side" id="leaderboard">
+    <h2>Top 5 high scores</h2>
+    <ol id="side-scores" class="scores"></ol>
+  </aside>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+@font-face {
+  font-family: 'Genshin';
+  src: url('assets/font/zh-cn.ttf') format('truetype');
+  font-weight: 100 900;  /* single-weight font: stops the browser faking bold */
+  font-display: swap;
+}
+:root {
+  /* Inazuma: Electro violet, shrine-night indigo, gold trim, a touch of sakura */
+  --ink: #f3ecff; --dim: #c9bde6; --gold: #d8c08a;
+  --electro: #b58cff; --electro-glow: rgba(181, 140, 255, .8); --focus: #dcc8ff;
+  --sakura: #ffb3d1; --rose: #ff9aa8;
+  --head: 'Genshin', 'Cinzel', 'Marcellus', Georgia, serif;
+  --font: 'Genshin', 'Marcellus', 'Cinzel', Georgia, serif;
+  --card-ratio: 1; /* width / height of your card art, e.g. 3 / 4 for portrait cards */
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0; min-height: 100vh; padding: 16px;
+  display: grid; place-items: center;
+  background: #120a2a; color: var(--ink); font-family: var(--font);
+}
+body::before {  /* full-page background art */
+  content: ""; position: fixed; inset: 0; z-index: -1;
+  background: url('assets/background/bg.png') center / cover no-repeat;
+}
+
+.cabinet, .side {
+  padding: 22px 18px 18px; border-radius: 12px;
+  background: linear-gradient(180deg, rgba(46, 29, 96, .88), rgba(18, 10, 44, .94));
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--gold);
+  outline: 1px solid rgba(216, 192, 138, .4); outline-offset: 5px;
+  box-shadow: 0 18px 60px rgba(8, 4, 24, .7), 0 0 50px rgba(181, 140, 255, .22);
+}
+.layout { width: min(100%, 520px); display: grid; gap: 28px; }
+@media (min-width: 900px) {  /* side boxes sit to the left of the game */
+  .layout {
+    width: auto; grid-template-columns: 300px 520px; grid-template-rows: auto 1fr;
+    grid-template-areas: "how game" "ranks game";
+  }
+  .cabinet { grid-area: game; }
+  #how-to-play { grid-area: how; }
+  #leaderboard { grid-area: ranks; }
+}
+@media (min-width: 1260px) {  /* keeps the game centred on wide screens */
+  .layout { grid-template-columns: 300px 520px 300px; grid-template-areas: "how game ." "ranks game ."; }
+}
+.side { display: flex; flex-direction: column; gap: 14px; }
+.rules { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; counter-reset: rule; }
+.rules li { position: relative; padding-left: 32px; font-size: 1.05rem; line-height: 1.5; color: var(--dim); counter-increment: rule; }
+.rules li::before {
+  content: counter(rule); position: absolute; left: 0; top: .15em; width: 22px; height: 22px;
+  display: grid; place-items: center; border: 1px solid var(--gold); border-radius: 50%;
+  font: 700 .8rem var(--head); color: var(--gold);
+}
+.marquee { text-align: center; margin-bottom: 16px; filter: drop-shadow(0 0 8px var(--electro-glow)); }
+.marquee::after, h2::after {
+  content: ""; display: block; height: 1px; margin: 10px auto 0; width: 70%;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+h1 {
+  margin: 0; font: 700 clamp(1.2rem, 5.4vw, 1.75rem)/1.2 var(--head);
+  letter-spacing: .12em; text-transform: uppercase; color: #fff;
+  text-shadow: 0 0 10px var(--electro-glow), 0 0 26px rgba(255, 179, 209, .35);
+}
+
+.hud { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.stat {
+  padding: 8px 12px; border-radius: 8px;
+  background: linear-gradient(180deg, rgba(243, 236, 255, .12), rgba(243, 236, 255, .04));
+  border: 1px solid rgba(216, 192, 138, .5);
+}
+.label { display: block; margin-bottom: 2px; font-size: .85rem; letter-spacing: .08em; color: var(--gold); }
+output { font: 700 clamp(1.15rem, 5vw, 1.5rem) var(--head); color: var(--ink); text-shadow: 0 0 10px rgba(181, 140, 255, .5); }
+.stat.hot output { color: var(--electro); text-shadow: 0 0 12px var(--electro-glow); }
+.stat.urgent output { color: var(--rose); text-shadow: 0 0 10px rgba(255, 154, 168, .7); animation: blink .6s steps(2) infinite; }
+.stat.bonus output { color: var(--electro); text-shadow: 0 0 14px var(--electro-glow); }
+@keyframes blink { 50% { opacity: .4; } }
+
+.screen {
+  position: relative; overflow: hidden; padding: 14px; border-radius: 10px;
+  border: 1px solid rgba(216, 192, 138, .6);
+  box-shadow: inset 0 0 30px rgba(181, 140, 255, .12);
+  background:  /* shoji-screen lattice */
+    repeating-linear-gradient(90deg, rgba(181, 140, 255, .08) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(0deg, rgba(181, 140, 255, .08) 0 1px, transparent 1px 26px),
+    rgba(14, 7, 36, .62);
+}
+.screen::before, .screen::after {  /* gold corner brackets */
+  content: ""; position: absolute; width: 12px; height: 12px; z-index: 1; pointer-events: none;
+  border: 0 solid var(--gold);
+}
+.screen::before { top: 3px; left: 3px; border-top-width: 2px; border-left-width: 2px; }
+.screen::after { bottom: 3px; right: 3px; border-bottom-width: 2px; border-right-width: 2px; }
+
+.board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.card {
+  aspect-ratio: var(--card-ratio); padding: 0; border: 0; background: none;
+  perspective: 700px; cursor: pointer; border-radius: 10px;
+}
+.card:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.card-inner {
+  display: block; position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d; transition: transform .45s;
+}
+.card.flipped .card-inner, .card.matched .card-inner { transform: rotateY(180deg); }
+.face {
+  position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden;
+  border-radius: 10px; border: 2px solid var(--gold); background: #2a1a5c;
+  backface-visibility: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, .4);
+}
+.face img { display: block; width: 100%; height: 100%; object-fit: cover; user-select: none; pointer-events: none; }
+.front { transform: rotateY(180deg); }
+.card:not(.flipped):not(.matched):hover .back { border-color: #fff; box-shadow: 0 0 16px var(--electro-glow); }
+.card.matched .front {
+  border-color: var(--electro); box-shadow: 0 0 0 1px var(--electro), 0 0 20px var(--electro-glow);
+  animation: zap .7s ease-out;
+}
+@keyframes zap { 0% { filter: brightness(2.2) saturate(1.5); box-shadow: 0 0 0 2px #fff, 0 0 36px #fff; } }
+.card.wrong .front { border-color: var(--rose); box-shadow: 0 0 16px rgba(255, 154, 168, .7); }
+
+.overlay {
+  position: absolute; inset: 0; z-index: 2; display: flex; padding: 16px;
+  overflow: auto; background: rgba(16, 9, 40, .94);
+}
+.panel { width: 100%; margin: auto; display: grid; gap: 12px; text-align: center; }
+h2 {
+  margin: 0; font: 700 1.25rem/1.3 var(--head); letter-spacing: .1em; text-transform: uppercase;
+  color: #fff; text-shadow: 0 0 10px var(--electro-glow);
+}
+h2::after { width: 50%; }
+p { margin: 0; font-size: 1.05rem; line-height: 1.6; color: var(--dim); }
+strong { color: var(--gold); font-family: var(--head); font-weight: 700; }
+form { display: grid; gap: 10px; justify-items: center; }
+label { color: var(--dim); font-size: 1.05rem; }
+input {
+  width: 6em; padding: 8px 10px; text-align: center; text-transform: uppercase;
+  font: 700 1.5rem var(--head); letter-spacing: .2em; color: #fff;
+  background: rgba(243, 236, 255, .08); border: 1px solid var(--gold); border-radius: 8px;
+}
+input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.btn {
+  justify-self: center; padding: 11px 30px; cursor: pointer;
+  font: 700 1.05rem var(--head); letter-spacing: .08em; color: #3a2a62;
+  background: #efe8f7; border: 0; border-radius: 999px;
+  box-shadow: 0 0 0 2px rgba(216, 192, 138, .9), 0 6px 14px rgba(0, 0, 0, .35);
+}
+.btn:hover { background: #fff; box-shadow: 0 0 0 2px var(--gold), 0 0 18px var(--electro-glow); }
+.btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+.scores { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; text-align: left; }
+.scores li {
+  display: grid; grid-template-columns: 2rem 1fr auto; gap: 8px; align-items: center;
+  padding: 8px 12px; border-radius: 8px; font: 700 1.05rem var(--head); color: var(--ink);
+  background: rgba(243, 236, 255, .08); border: 1px solid rgba(216, 192, 138, .35);
+}
+.scores .rank { color: var(--gold); }
+.scores .pts { color: var(--electro); }
+.scores li.me { border-color: var(--electro); box-shadow: 0 0 12px rgba(181, 140, 255, .5); }
+.scores li.empty { display: block; font: 400 1.05rem var(--font); color: var(--dim); text-align: center; }
+
+#message { min-height: 1.5em; margin: 12px 0 0; text-align: center; font-size: 1.05rem; color: var(--dim); }
+
+@media (prefers-reduced-motion: reduce) {
+  .card-inner { transition: none; }
+  .stat.urgent output, .card.matched .front { animation: none; }
+}
