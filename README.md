@@ -18,4 +18,4 @@ This is a non-commercial, open-source fan project.
 * **Development:** Code base generated and structured with the assistance of AI (Claude/Gemini).
 
 ## 🚀 How to Play
-You can play the live version of the game here: **[Insert your GitHub Pages Link here]**
+You can play the live version of the game here: https://tabibito-c6.github.io/Memory-Matching-Game/
