@@ -12,7 +12,7 @@ This project was created as a personal portfolio piece to practice web developme
 
 This is a non-commercial, open-source fan project. 
 
-* **Character Art & Assets:** All character artwork, images, and Genshin Impact trademarks belong to **HoYoverse (COGNOSPHERE PTE. LTD.)**. This project is not affiliated with, endorsed, or sponsored by HoYoverse.
+* **Character Art & Assets:** All character artwork, audios, images, and Genshin Impact trademarks belong to **HoYoverse (COGNOSPHERE PTE. LTD.)**. This project is not affiliated with, endorsed, or sponsored by HoYoverse.
 * **Development:** Code base generated and structured with the assistance of AI (Claude/Gemini).
 
 ## 🚀 How to Play
